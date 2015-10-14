@@ -1,5 +1,4 @@
-import React, { PropTypes, Component, findDOMNode } from 'react';
-import joinClasses from 'react/lib/joinClasses';
+import React, { PropTypes, Component } from 'react';
 
 function capitalize(str) {
 	return str.charAt(0).toUpperCase() + str.substr(1);
@@ -54,8 +53,8 @@ class Slider extends Component {
   componentDidMount() {
   	let { orientation } = this.props;
   	let dimension = capitalize(constants.orientation[orientation].dimension);
-  	const sliderPos = findDOMNode(this.refs.slider)['offset' + dimension];
-  	const handlePos = findDOMNode(this.refs.handle)['offset' + dimension]
+	const sliderPos = this.refs.slider['offset' + dimension];
+	const handlePos = this.refs.handle['offset' + dimension]
   	this.setState({
   		limit: sliderPos - handlePos,
   		grab: handlePos / 2,
@@ -121,7 +120,7 @@ class Slider extends Component {
   position = (e) => {
   	let pos, value, { grab } = this.state;
   	let { orientation } = this.props;
-  	const node = findDOMNode(this.refs.slider);
+	const node = this.refs.slider;
   	const coordinateStyle = constants.orientation[orientation].coordinate;
   	const directionStyle = constants.orientation[orientation].direction;
   	const coordinate = e['client' + capitalize(coordinateStyle)];
@@ -169,7 +168,7 @@ class Slider extends Component {
   	return (
   		<div
 	  		ref="slider"
-	  		className={joinClasses('rangeslider ', 'rangeslider-' + orientation, className)}
+			className={`rangeslider rangeslider-${orientation} ${className}`}
 	  		onMouseDown={this.handleSliderMouseDown}
 	  		onClick={this.handleNoop}>
 	  		<div
