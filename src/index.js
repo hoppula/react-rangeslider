@@ -153,7 +153,7 @@ class Slider extends Component {
   }
 
   render() {
-  	let dimension, direction, position, coords, fillStyle, handleStyle;
+	let dimension, direction, position, coords, fillStyle, handleStyle, classNames;
   	let { value, orientation, className } = this.props;
 
   	dimension = constants.orientation[orientation].dimension;
@@ -165,19 +165,26 @@ class Slider extends Component {
   	fillStyle = {[dimension]: `${coords.fill}px`};
   	handleStyle = {[direction]: `${coords.handle}px`};
 
+	classNames = {
+		slider: ['rangeslider', `rangeslider-${orientation}`, className].join(' '),
+		fill: 'rangeslider__fill',
+		handle: 'rangeslider__handle',
+		...this.props.classNames
+	};
+
   	return (
   		<div
 	  		ref="slider"
-			className={`rangeslider rangeslider-${orientation} ${className}`}
+			className={classNames.slider}
 	  		onMouseDown={this.handleSliderMouseDown}
 	  		onClick={this.handleNoop}>
 	  		<div
 		  		ref="fill"
-		  		className="rangeslider__fill"
+				className={classNames.fill}
 		  		style={fillStyle} />
 	  		<div
 		  		ref="handle"
-		  		className="rangeslider__handle"
+				className={classNames.handle}
 		  		onMouseDown={this.handleKnobMouseDown}
 		  		onClick={this.handleNoop}
 		  		style={handleStyle} />
