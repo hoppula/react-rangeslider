@@ -5,7 +5,8 @@
   "main": "lib/index",
   "scripts": {
     "start": "node server.js",
-    "build": "scripts/build.sh",
+    "build": "babel src/index.js --out-file lib/index.js --stage 0",
+    "watch": "babel src/index.js --watch --out-file lib/index.js --stage 0",
     "deploy": "scripts/deploy.sh",
     "lint": "eslint src",
     "test": "npm run lint && karma start"
